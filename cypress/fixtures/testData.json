@@ -1,0 +1,77 @@
+{
+  "categories": [
+    {
+      "name": "Breakfast",
+      "expectedProducts": ["Bacon Roll", "Breakfast Baguette", "Porridge"],
+      "minProducts": 5
+    },
+    {
+      "name": "Sandwiches",
+      "expectedProducts": ["Cheese Ploughmans", "Tuna Crunch", "Chicken Club"],
+      "minProducts": 8
+    },
+    {
+      "name": "Sweet Treats",
+      "expectedProducts": ["Doughnut", "Yum Yum", "Cookie"],
+      "minProducts": 10
+    },
+    {
+      "name": "Hot Food",
+      "expectedProducts": ["Sausage Roll", "Steak Bake", "Chicken Bake"],
+      "minProducts": 6
+    }
+  ],
+  "searchTerms": {
+    "valid": [
+      {
+        "term": "sausage",
+        "expectedInResults": ["Sausage Roll", "Sausage and Bean"],
+        "minResults": 2
+      },
+      {
+        "term": "coffee",
+        "expectedInResults": ["Flat White", "Latte", "Americano"],
+        "minResults": 3
+      },
+      {
+        "term": "vegan",
+        "expectedInResults": ["Vegan", "Plant-Based"],
+        "minResults": 1
+      }
+    ],
+    "invalid": [
+      "xyznonexistent123",
+      "qwerty12345",
+      "!!!###$$$"
+    ]
+  },
+  "performanceThresholds": {
+    "pageLoad": 3000,
+    "firstContentfulPaint": 1500,
+    "domProcessing": 1500,
+    "apiResponse": 2000
+  },
+  "viewports": {
+    "mobile": {
+      "width": 375,
+      "height": 667,
+      "userAgent": "iPhone"
+    },
+    "tablet": {
+      "width": 768,
+      "height": 1024,
+      "userAgent": "iPad"
+    },
+    "desktop": {
+      "width": 1280,
+      "height": 720,
+      "userAgent": "Chrome"
+    }
+  },
+  "accessibility": {
+    "minContrastRatio": 4.5,
+    "maxTabIndexElements": 50,
+    "requiredAriaRoles": ["navigation", "main", "search"],
+    "requiredLandmarks": ["banner", "main", "contentinfo"]
+  }
+}

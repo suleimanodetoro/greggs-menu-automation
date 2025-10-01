@@ -515,7 +515,7 @@ MIT License - see LICENSE file for details
 ## 👤 Author
 
 **Suleiman Odetoro**
-- GitHub: [@suleimanodetoro](https://github.com/suleiman)
+- GitHub: [@suleimanodetoro](https://github.com/suleimanodetoro)
 - Email: Attached in CV
 
 ---

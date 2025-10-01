@@ -1,0 +1,97 @@
+{
+  "name": "greggs-menu-automation",
+  "version": "2.0.0",
+  "description": "Production-ready Cypress test suite for Greggs.com menu section with comprehensive coverage of functional, accessibility, performance, and responsive design aspects. Discovered 2 production bugs including critical allergen filtering issue.",
+  "main": "cypress.config.js",
+  "scripts": {
+    "test": "cypress run",
+    "test:open": "cypress open",
+    "test:chrome": "cypress run --browser chrome",
+    "test:firefox": "cypress run --browser firefox",
+    "test:edge": "cypress run --browser edge",
+    "test:headless": "cypress run --headless",
+    "test:mobile": "cypress run --config viewportWidth=375,viewportHeight=667 --spec 'cypress/e2e/**/menu.spec.js'",
+    "test:tablet": "cypress run --config viewportWidth=768,viewportHeight=1024",
+    "test:desktop": "cypress run --config viewportWidth=1920,viewportHeight=1080",
+    "test:smoke": "cypress run --spec 'cypress/e2e/**/menu.spec.js' --config retries=0",
+    "test:ci": "cypress run --record false --reporter mochawesome",
+    "test:parallel": "cypress run --record --parallel",
+    "test:performance": "cypress run --spec 'cypress/e2e/menu/performance/budgets.spec.js' --browser chrome",
+    "test:performance:open": "cypress open --config specPattern='cypress/e2e/menu/performance/budgets.spec.js'",
+    "test:performance:mobile": "cypress run --spec 'cypress/e2e/menu/performance/budgets.spec.js' --browser chrome --config viewportWidth=375,viewportHeight=667",
+    "test:performance:tablet": "cypress run --spec 'cypress/e2e/menu/performance/budgets.spec.js' --browser chrome --config viewportWidth=768,viewportHeight=1024",
+    "test:performance:desktop": "cypress run --spec 'cypress/e2e/menu/performance/budgets.spec.js' --browser chrome --config viewportWidth=1920,viewportHeight=1080",
+    "test:performance:all": "npm run test:performance:mobile && npm run test:performance:tablet && npm run test:performance:desktop",
+    "analyze:performance": "node scripts/check-performance-budget.js --report cypress/reports/performance-latest.json",
+    "lighthouse": "lhci autorun --config=.lighthouserc.json",
+    "report:merge": "mochawesome-merge cypress/reports/*.json > cypress/reports/merged-report.json",
+    "report:generate": "marge cypress/reports/merged-report.json -f report -o cypress/reports --charts true --overwrite false",
+    "report:clean": "rm -rf cypress/reports/*.json cypress/reports/*.html",
+    "report": "npm run report:merge && npm run report:generate",
+    "clean": "rm -rf cypress/screenshots cypress/videos cypress/reports",
+    "clean:all": "npm run clean && rm -rf node_modules",
+    "lint": "eslint cypress --ext .js",
+    "pretest": "npm run clean",
+    "posttest": "npm run report",
+    "verify": "cypress verify",
+    "info": "cypress info",
+    "version": "cypress version"
+  },
+  "keywords": [
+    "cypress",
+    "automation",
+    "testing",
+    "e2e",
+    "qa",
+    "quality-assurance",
+    "greggs",
+    "menu",
+    "nuxt",
+    "vue",
+    "ssr",
+    "performance",
+    "accessibility",
+    "wcag",
+    "a11y",
+    "responsive",
+    "web-vitals",
+    "interview-project"
+  ],
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com",
+    "url": "https://github.com/yourusername"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "devDependencies": {
+    "@cypress/webpack-preprocessor": "^6.0.0",
+    "@lhci/cli": "^0.12.0",
+    "cypress": "^15.3.0",
+    "cypress-plugin-tab": "^1.0.5",
+    "cypress-real-events": "^1.15.0",
+    "eslint": "^8.50.0",
+    "eslint-plugin-cypress": "^2.15.0",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.3.0",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.3.0",
+    "webpack": "^5.90.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "step_definitions": "cypress/e2e/step_definitions"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suleimanodetoro/greggs-menu-automation"
+  },
+  "bugs": {
+    "url": "https://github.com/suleimanodetoro/greggs-menu-automation/issues"
+  },
+  "homepage": "https://github.com/suleimanodetoro/greggs-menu-automation#readme"
+}
