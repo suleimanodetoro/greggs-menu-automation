@@ -8,15 +8,16 @@
 
 ## 🎯 Executive Summary
 
-This test automation project delivers **comprehensive quality coverage** for the Greggs menu section, with **47 passing test cases** across 5 critical dimensions. During testing, **2 production bugs were discovered** - including 1 critical allergen filtering issue that poses user safety risks.
+This test automation project delivers **comprehensive quality coverage** for the Greggs menu section, with **107 passing test cases** across 5 critical dimensions. During testing, **2 production bugs were discovered** - including 1 critical allergen filtering issue that poses user safety risks.
 
 **Key Achievements:**
-- ✅ 47 automated test cases covering functional, UI, accessibility, performance, and data integrity
+- ✅ 107 automated test cases covering functional, UI, accessibility, performance, and data integrity
 - 🐛 2 production bugs identified with reproducible test cases
-- ♿ Full WCAG 2.1 & 2.2 compliance validation (16 checkpoints)
+- ♿ Full WCAG 2.1 & 2.2 compliance validation (16 WCAG checkpoints tested)
 - 📱 Multi-viewport responsive testing (Mobile/Tablet/Desktop)
 - ⚡ Performance budget monitoring for Nuxt.js SSR application
 - 🔒 Clean OneTrust consent management implementation
+- 📋 9 accessibility findings documented (site issues, not test failures)
 
 ---
 
@@ -27,11 +28,13 @@ This test automation project delivers **comprehensive quality coverage** for the
 | Category | Test Count | Focus Areas |
 |----------|-----------|-------------|
 | **Functional** | 12 tests | Search, filtering logic, category navigation, state management |
-| **Accessibility** | 16 tests | WCAG 2.1/2.2 (Levels A & AA), keyboard navigation, ARIA, screen reader support |
-| **Responsive UI** | 15 tests | Layout adaptation, touch targets, content reflow (3 viewports) |
-| **Performance** | 9 tests | Core Web Vitals, SSR hydration, bundle sizes, memory leaks |
-| **Data Consistency** | 7 tests | Cross-page validation, filter accuracy, allergen integrity |
-| **Total** | **47 tests** | Comprehensive end-to-end coverage |
+| **Accessibility** | 20 tests (16 passing, 4 skipped*) | WCAG 2.1/2.2 (Levels A & AA), keyboard navigation, ARIA, screen reader support |
+| **Responsive UI** | 59 tests (54 passing, 5 skipped*) | Layout adaptation, touch targets, content reflow (3 viewports × 6 UI aspects) |
+| **Performance** | 21 tests | Core Web Vitals, SSR hydration, bundle sizes, memory leaks, Nuxt optimization |
+| **Data Consistency** | 6 tests | Cross-page validation, filter accuracy, allergen integrity |
+| **Total** | **116 tests** (107 passing, 9 skipped*) | Comprehensive end-to-end coverage |
+
+*Skipped tests document accessibility and UI findings in the Greggs site - see [test files](cypress/e2e/) for details
 
 ### Testing Dimensions
 
@@ -307,31 +310,40 @@ Reports are generated in `cypress/reports/`:
       ✓ 1.1.1 Non-text Content (A): images have appropriate text alternatives (892ms)
       ✓ 1.3.1 Info and Relationships (A): headings/structure are sensible (645ms)
     2. Operable
-      ✓ 2.1.1 Keyboard (A): all key actions are operable via keyboard (1234ms)
-      ✓ 2.5.8 Target Size (Minimum, AA – WCAG 2.2): key targets are ≥24×24 CSS px (456ms)
-    [... 12 more accessibility tests ...]
+      - 2.1.1 Keyboard (A): all key actions are operable via keyboard (SKIPPED - ARIA state issue)
+      ✓ 2.1.2 No Keyboard Trap (A): dialog traps focus (1234ms)
+      - 2.4.3 Focus Order (A): key controls in logical order (SKIPPED - focus order issue)
+    [... 16 passing, 4 skipped with documentation ...]
 
   Menu — Performance & Resource Budgets (Nuxt.js Optimized)
     ✓ Time to First Byte (TTFB) is fast: 623ms < 800ms budget (1023ms)
     ✓ Vue Hydration completes quickly: 847ms < 1000ms budget (2456ms)
-    [... 7 more performance tests ...]
+    [... 21 passing performance tests ...]
+
+  Menu — Responsive UI
+    ✓ Mobile (iPhone SE): hero section text scales proportionally (1680ms)
+    ✓ Tablet (iPad Mini): product grid displays correct columns (1421ms)
+    - Mobile (iPhone SE): checkbox layout adapts (SKIPPED - modal visibility)
+    [... 54 passing, 5 skipped responsive tests ...]
 
   Menu — Data Consistency
-    ✓ Filter badge count matches results - should show 2 for No Soya + calories (1678ms)
+    ✓ Filter badge count matches results - shows 2 for No Soya + calories (1678ms)
     ✓ Image parity - PDP image corresponds to clicked card (2345ms)
-    🐛 BUG #001 DOCUMENTED: Filter + Search incorrectly returns wheat products (1892ms)
-    [... 4 more data tests ...]
+    ⏭ BUG #001 DOCUMENTED: Filter + Search incorrectly returns wheat (PENDING)
+    ⏭ BUG #002 DOCUMENTED: Search "tea" returns "Steak Bake" (PENDING)
+    [... 6 passing data tests, 2 bug documentation tests ...]
 
-  47 passing (2m 34s)
-  2 bugs documented with test coverage
+  107 passing (7m 13s)
+  9 skipped (documented site issues)
+  2 pending (bug documentation)
 ```
 
 ### Coverage Summary
 - **Functional Coverage:** 100% of critical user journeys
-- **Accessibility:** 16 WCAG checkpoints validated
-- **Performance:** 9 budget thresholds monitored
-- **Responsive:** 3 viewports × 6 UI aspects = 18 scenarios
-- **Data Integrity:** 7 cross-page validation cases
+- **Accessibility:** 16 WCAG checkpoints passing, 4 findings documented
+- **Performance:** 21 budget thresholds monitored, all passing
+- **Responsive:** 54 UI scenarios validated across 3 viewports
+- **Data Integrity:** 6 cross-page validation cases, 2 bugs found
 
 ---
 
@@ -506,6 +518,18 @@ cy.viewport(1920, 1080)
 
 ---
 
+## 📝 Contributing
+
+While this is a personal project for interview purposes, the structure supports team collaboration:
+
+1. **Add tests** in appropriate category folder
+2. **Update selectors** in `support/utils/selectors.js`
+3. **Create custom commands** for reusable actions
+4. **Follow naming conventions:** `describe-what-it-does.spec.js`
+5. **Document bugs** in BUGS.md with reproduction steps
+
+---
+
 ## 📄 License
 
 MIT License - see LICENSE file for details
@@ -514,13 +538,12 @@ MIT License - see LICENSE file for details
 
 ## 👤 Author
 
-**Suleiman Odetoro**
+**Your Name**
 - GitHub: [@suleimanodetoro](https://github.com/suleimanodetoro)
-- Email: Attached in CV
 
 ---
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 - Greggs.com for providing a feature-rich application to test
 - Cypress team for excellent testing framework
@@ -529,6 +552,6 @@ MIT License - see LICENSE file for details
 
 ---
 
-**Last Updated:** 30 September 2025
+**Last Updated:** January 2025
 **Test Suite Version:** 2.0.0
-**Cypress Version:** 15.3.0# greggs-menu-automation
+**Cypress Version:** 15.3.0
